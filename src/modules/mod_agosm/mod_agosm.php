@@ -14,21 +14,24 @@ defined('_JEXEC') or die;
 require_once __DIR__ . '/helper.php';
 require_once __DIR__ . '/Helper/EasyFileUploaderHelper.php';
 
-
 $moduleclass_sfx = htmlspecialchars($params->get('moduleclass_sfx'));
 
 // Include skripts/styles to the header
 $document = JFactory::getDocument();
 
 $leafletIsLoaded = false;
+
 foreach ($document->_scripts as $key => $script)
 {
 	$leafletPath = "leaflet/leaflet.js";
+
 	if (strpos($key, $leafletPath))
 	{
 		$leafletIsLoaded = true;
 	}
 }
+
+
 if (!$leafletIsLoaded)
 {
 	$document->addStyleSheet(JURI::root(true) . '/media/mod_agosm/leaflet/leaflet.css');
@@ -109,4 +112,5 @@ if ($params->get('showmarkerfromexternaldb', '0') === "1")
 }
 
 $document->addScript(JURI::root(true) . '/media/mod_agosm/js/agosm.js');
+$document->addStyleSheet(JURI::root(true) . '/media/mod_agosm/css/agosms.css');
 require JModuleHelper::getLayoutPath('mod_agosm', $params->get('layout', 'default'));

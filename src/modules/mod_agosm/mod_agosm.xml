@@ -46,6 +46,17 @@
 
 				<field
 					type="list"
+					name="heightunit"
+					label="MOD_AGOSM_HEIGHTUNIT"
+					description="MOD_AGOSM_HEIGHTUNIT_DESC"
+					default="px"
+				>
+					<option value="px">px (Pixel)</option>
+					<option value="vh">vh (Viewport Height)</option>
+				</field>
+
+				<field
+					type="list"
 					name="zoom"
 					default="7"
 					label="MOD_AGOSM_ZOOM"
@@ -732,7 +743,7 @@
 					multiple="true"
 					label="MOD_AGOSM_CONFIG_CONTROL_SUBFORM_LABEL"
 					min= "1"
-					max= "20"
+					max= "1000"
 					description="MOD_AGOSM_CONFIG_CONTROL_SUBFORM_DESC"
 					layout="joomla.form.field.subform.repeatable"
 					showon="showpin:1"

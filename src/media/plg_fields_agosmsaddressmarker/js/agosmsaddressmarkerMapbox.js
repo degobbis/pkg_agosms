@@ -1,25 +1,32 @@
 document.addEventListener('click', function (e) {
 	if (e.target.classList.contains('agosmsaddressmarkerbutton')) {
 		var button = e.target;
-		var addressstring = button.getAttribute('data-addressstring');
+		var addressstring = [];
+		var fieldsNameArray =  button.getAttribute('data-fieldsnamearray').split(',');
 		var mapboxkey = button.getAttribute('data-mapboxkey');
 		var surroundingDiv = button.parentNode;
 		var inputs = surroundingDiv.getElementsByTagName('input');
 		var lat = inputs[0];
 		var lon = inputs[1];
-		var hiddenfield = inputs[2];
+
+		[].forEach.call(fieldsNameArray, function(el){
+			var field = document.getElementById(el);
+			addressstring.push(field.value);
+		});
+
+		addressstring = addressstring.join();
 
 		var cords = function (results) {
 			if (results.features && results.features.length === 1) {
 				var lonlat = results.features[0].center;
 				lat.value = lonlat[1];
 				lon.value = lonlat[0];
-				hiddenfield.value = lonlat[1] + "," + lonlat[0];
-				tempAlert("MapBox OK: " + addressstring, 2000, "28a745");
+				lon.onchange();
+				Joomla.renderMessages({"notice": [(Joomla.JText._('PLG_AGOSMSADDRESSMARKER_ADDRESSE_NOTICE') + addressstring) + ' (Mapbox)']});
 			} else if (results.features && results.features.length > 0) {
 				// Limit is fix set to 1 up to now
 			} else {
-				tempAlert("MapBox Error: " + addressstring, 2000, "dc3545");
+				Joomla.renderMessages({"error": [Joomla.JText._('PLG_AGOSMSADDRESSMARKER_ADDRESSE_ERROR') + addressstring + ' (Mapbox)']});
 			}
 		}
 		var params = {

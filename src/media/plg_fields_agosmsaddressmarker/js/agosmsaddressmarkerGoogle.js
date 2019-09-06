@@ -1,24 +1,31 @@
 document.addEventListener('click', function (e) {
 	if (e.target.classList.contains('agosmsaddressmarkerbutton')) {
 		var button = e.target;
-		var addressstring = button.getAttribute('data-addressstring');
+		var addressstring = [];
+		var fieldsNameArray =  button.getAttribute('data-fieldsnamearray').split(',');
 		var googlekey = button.getAttribute('data-googlekey');
 		var surroundingDiv = button.parentNode;
 		var inputs = surroundingDiv.getElementsByTagName('input');
 		var lat = inputs[0];
 		var lon = inputs[1];
-		var hiddenfield = inputs[2];
+
+		[].forEach.call(fieldsNameArray, function(el){
+			var field = document.getElementById(el);
+			addressstring.push(field.value);
+		});
+
+		addressstring = addressstring.join();
 
 		var cords = function (results) {
-			console.log(results);
 			if (results.status === "OK") {
 				var lonlat = results.results[0].geometry.location;
 				lat.value = lonlat.lat;
 				lon.value = lonlat.lng;
-				hiddenfield.value = lonlat.lat + "," + lonlat.lng;
-				tempAlert("Google OK: " + addressstring, 2000, "28a745");
+				lon.onchange();
+				Joomla.renderMessages({"notice": [(Joomla.JText._('PLG_AGOSMSADDRESSMARKER_ADDRESSE_NOTICE') + addressstring + ' (Google)')]});
 			} else {
-				tempAlert("Google Error: " + addressstring, 2000, "dc3545");
+				var message = (typeof results.error_message == 'undefined') ? "" : results.error_message;
+				Joomla.renderMessages({"error": [Joomla.JText._('PLG_AGOSMSADDRESSMARKER_ADDRESSE_ERROR') + addressstring + ' (Google: ' + results.status + ' ' + message + ')']});
 			}
 		}
 		var params = {
@@ -62,5 +69,6 @@ function getParamString(obj, existingUrl, uppercase) {
 			}
 		}
 	}
+	
 	return (!existingUrl || existingUrl.indexOf('?') === -1 ? '?' : '&') + params.join('&');
 }

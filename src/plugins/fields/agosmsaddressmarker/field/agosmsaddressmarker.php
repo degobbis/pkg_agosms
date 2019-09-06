@@ -37,7 +37,7 @@ class JFormFieldAgosmsaddressmarker extends JFormFieldText
 	/**
 	 * The name of the mapheigth field.
 	 *
-	 * @var    int
+	 * @var    integer
 	 * @since  1.0.40
 	 */
 	protected $mapheight;
@@ -73,7 +73,7 @@ class JFormFieldAgosmsaddressmarker extends JFormFieldText
 	 * @since  1.0.40
 	 */
 	protected $mapboxkey;
-	
+
 	/**
 	 * The name of the addressfields field.
 	 *
@@ -81,15 +81,15 @@ class JFormFieldAgosmsaddressmarker extends JFormFieldText
 	 * @since  1.0.40
 	 */
 	protected $addressfields;
-	
+
 	/**
 	 * The name of the scrollwheelzoom field.
 	 *
 	 * @var    string
 	 * @since  1.0.42
 	 */
-	protected $scrollwheelzoom; 
-	
+	protected $scrollwheelzoom;
+
 	/**
 	 * The name of the owngooglegesturetext field.
 	 *
@@ -97,6 +97,30 @@ class JFormFieldAgosmsaddressmarker extends JFormFieldText
 	 * @since  1.0.43
 	 */
 	protected $owngooglegesturetext;
+
+	/**
+	 * The name of the popup field.
+	 *
+	 * @var    string
+	 * @since  1.0.46
+	 */
+	protected $popup;
+
+	/**
+	 * The name of the specialicon field.
+	 *
+	 * @var    string
+	 * @since  1.0.46
+	 */
+	protected $specialicon;
+
+	/**
+	 * The name of the showrouting field.
+	 *
+	 * @var    string
+	 * @since  1.0.46
+	 */
+	protected $showroutingcontrol;
 
 	/**
 	 * Method to get certain otherwise inaccessible properties from the form field object.
@@ -117,6 +141,9 @@ class JFormFieldAgosmsaddressmarker extends JFormFieldText
 			case 'googlekey':
 			case 'mapboxkey':
 			case 'owngooglegesturetext':
+			case 'specialicon':
+			case 'popup':
+			case 'showroutingcontrol':
 				return $this->$name;
 		}
 
@@ -151,6 +178,9 @@ class JFormFieldAgosmsaddressmarker extends JFormFieldText
 			$this->addressfields = (string) $this->element['addressfields'];
 			$this->scrollwheelzoom = (string) $this->element['scrollwheelzoom'];
 			$this->owngooglegesturetext = (string) $this->element['owngooglegesturetext'];
+			$this->specialicon = (string) $this->element['specialicon'];
+			$this->popup = (string) $this->element['popup'];
+			$this->showroutingcontrol = (string) $this->element['showroutingcontrol'];
 		}
 
 		return $result;
@@ -197,9 +227,21 @@ class JFormFieldAgosmsaddressmarker extends JFormFieldText
 			case 'scrollwheelzoom':
 				$this->scrollwheelzoom = (string) $value;
 				break;
-			
+
 			case 'owngooglegesturetext':
 				$this->owngooglegesturetext = (string) $value;
+				break;
+
+			case 'specialicon':
+				$this->specialicon = (string) $value;
+				break;
+
+			case 'popup':
+				$this->popup = (string) $value;
+				break;
+
+			case 'showroutingcontrol':
+				$this->showroutingcontrol = (string) $value;
 				break;
 
 			default:
@@ -249,7 +291,8 @@ class JFormFieldAgosmsaddressmarker extends JFormFieldText
 	{
 		$data = parent::getLayoutData();
 
-		/* Get the addressfields */
+		// Get the addressfields
+
 		$options = (array) $this->getOptions();
 
 		$extraData = array(
@@ -261,6 +304,9 @@ class JFormFieldAgosmsaddressmarker extends JFormFieldText
 			'addressfields' => $this->addressfields,
 			'scrollwheelzoom' => $this->scrollwheelzoom,
 			'owngooglegesturetext' => $this->owngooglegesturetext,
+			'specialicon' => $this->specialicon,
+			'popup' => $this->popup,
+			'showroutingcontrol' => $this->showroutingcontrol,
 			'options' => $options,
 		);
 
@@ -339,9 +385,10 @@ class JFormFieldAgosmsaddressmarker extends JFormFieldText
 				$tmp['optionattr'] = " data-showon='" .
 					json_encode(
 						JFormHelper::parseShowOnConditions((string) $option['showon'], $this->formControl, $this->group)
-						)
+					)
 					. "'";
 			}
+
 			// Add the option object to the result set.
 			$options[] = (object) $tmp;
 		}
