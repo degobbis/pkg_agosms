@@ -351,26 +351,52 @@ document.addEventListener('DOMContentLoaded', function () {
 				addresserror: Joomla.JText._('MOD_AGOSM_ROUTING_SIMPLE_TEXT_ADDRESSERROR'),
 				requesterror: Joomla.JText._('MOD_AGOSM_ROUTING_SIMPLE_TEXT_REQUESTERROR')
 			}).addTo(window['mymap' + moduleId]);
+
 		}
 
 		// Add Routing Mapbox
 		if (showrouting === '1')
 		{
-			L.Routing.control({
+			function button(label, container) {
+				var btn = L.DomUtil.create('button', '', container);
+				btn.setAttribute('type', 'button');
+				btn.innerHTML = label;
+				return btn;
+			}
+			
+			var control = L.Routing.control({
 				geocoder: L.Control.Geocoder.nominatim({}),
 				waypoints: [
 					L.latLng(routingstart),
 					L.latLng(routingend)
 				],
 				collapsible: true,
+				show: false,
+				autoRoute: true,
 				router: L.Routing.mapbox(mapboxkeyRouting,
 					{
 						profile: routingprofile,
 						language: routinglanguage,
 					}),
 				units: routingmetric,
+				reverseWaypoints: true,
 				routeWhileDragging: routewhiledragging
 			}).addTo(window['mymap' + moduleId]);
+
+			(window['mymap' + moduleId]).on('click', function (e) {
+				var container = L.DomUtil.create('div');
+				var startBtn = button('Start', container);
+				var destBtn = button('End', container);
+				L.DomEvent.on(startBtn, 'click', function () {
+					control.spliceWaypoints(0, 1, e.latlng);
+					(window['mymap' + moduleId]).closePopup();
+				});
+				L.DomEvent.on(destBtn, 'click', function () {
+					control.spliceWaypoints(control.getWaypoints().length - 1, 1, e.latlng);
+					(window['mymap' + moduleId]).closePopup();
+				});
+				L.popup().setContent(container).setLatLng(e.latlng).openOn(window['mymap' + moduleId]);
+			});
 		}
 
 		// Special Pins
@@ -535,12 +561,12 @@ document.addEventListener('DOMContentLoaded', function () {
 				var objcf = specialcustomfieldpins[specialcustomfieldpin];
 
 				let tempMarkercf = null;
-				
+
 				if (objcf.cords)
 				{
 					var values = objcf.cords.split(",");
 					tempMarkercf = L.marker(objcf.cords.split(",").slice(0, 2));
-					
+
 					if (values.length > 4 && objcf.type !== 'agosmsaddressmarker')
 					{
 						var AwesomeIcon = new L.AwesomeMarkers.icon(
@@ -554,7 +580,7 @@ document.addEventListener('DOMContentLoaded', function () {
 							})
 						tempMarkercf.setIcon(AwesomeIcon);
 					}
-					
+
 					if (objcf.type === 'agosmsaddressmarker' && objcf.iconcolor && objcf.markercolor && objcf.icon)
 					{
 						var AwesomeIcon = new L.AwesomeMarkers.icon(

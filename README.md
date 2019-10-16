@@ -1,9 +1,15 @@
 # pkg_agosm
 Openstreetmap Modul
 
+> Attention, this extension is not compatible with 
+[plg_fields_agosmmapwithmarker](https://github.com/astridx/plg_fields_agosmmapwithmarker). 
+The two extensions can be installed together. They may not be displayed on one page at the same time.
+
 # Quickstart
 
 ## Module
+
+### AGOSM Module 
 
 1. Install this package via Joomla! installer. 
 Please check after the installation if the module is correcly installed. 
@@ -28,7 +34,7 @@ will look like in the next image.
 
 Voila!
 
-### Routing to address - How to find us 
+#### Routing to address - How to find us 
 
 A popular feature of this extension is 'Routing to address'.  
 
@@ -46,9 +52,35 @@ a route to the address you entered in the back end.
 
 ![a2](https://user-images.githubusercontent.com/9974686/51428133-82b52c80-1c00-11e9-8d4d-afee1c2e4a3a.png)
 
-### Show markers on a map that link to an article - you can enter the coordinate in a Custom Field
+3. If you activate the option suggestions, you will see a 
+[Algolia Places autocompletion menu](https://community.algolia.com/places/documentation.html#demo).
 
-#### Custom Field of the type text
+![a1](https://user-images.githubusercontent.com/9974686/64909626-f1567580-d70e-11e9-9c9d-fcd70ac48327.png)
+
+#### Routing with Mapbox
+
+You will find the option to enable MapBox Routing in the backend. 
+For this you need a [key](https://docs.mapbox.com/help/how-mapbox-works/access-tokens/).
+
+![a4](https://user-images.githubusercontent.com/9974686/64909623-f0bddf00-d70e-11e9-95eb-00a7b9591427.png)
+
+If you activate the option you will see a collapsed control. 
+When you roll your mouse over the controller, it opens.
+
+![a2](https://user-images.githubusercontent.com/9974686/64909625-f0bddf00-d70e-11e9-8612-ed8849652a5f.png)
+
+To select starting point and destination point you have several options. See following picture. 
+Thank you for the hint with the buttons to [jojo](https://github.com/jojo12)
+
+![a3](https://user-images.githubusercontent.com/9974686/64909624-f0bddf00-d70e-11e9-90c7-b2e78b0b7f64.png)
+
+The result after clicking on Return should look something like this.
+
+![a5](https://user-images.githubusercontent.com/9974686/64909622-f0bddf00-d70e-11e9-9f26-9b785e00fbd2.png)
+
+#### Show markers on a map that link to an article - you can enter the coordinate in a Custom Field
+
+##### Custom Field of the type text
 
 The next picture shows what the map might look like. If the markers are too close together, 
 they will be clustered. If the resolution of the card fits, the marker will be displayed. 
@@ -75,12 +107,37 @@ When you enter `50.150, 7.158, red, green, home` you will see an icon as shown i
 
 ![Custom Marker](https://user-images.githubusercontent.com/9974686/59145384-7250f300-89e3-11e9-96c8-772a0f63ff7e.png)
 
-#### Custom Field agosmsmarker
+##### Custom Field agosmsmarker and agosmsaddressmarker
 
-instead of the text fields, there is now a special custom field where you can choose all options more user friendly. 
+Instead of the text fields, there are now two special custom fields where you 
+can choose all options more user friendly.
+
+###### agosmsmarker 
+
+Create the Custom field agosmmarker
+
+![omarker2](https://user-images.githubusercontent.com/9974686/65074589-7357d000-d995-11e9-998c-fe0ad2ad413f.png)
+
+Fill the Custom Field agosmsmarker while editing an article. You can choose many options, 
+but you need to know the correct coordinates. 
+
+![omarker1](https://user-images.githubusercontent.com/9974686/65074590-7357d000-d995-11e9-9ac9-609ed6bef35a.png)
+
+###### agosmsaddressmarker
+
+The Custom Field agosmsaddressmarker calculates the coordinates for a given address. 
+For this you need another Custom Field whitch contains the address.  
+
+![amarker1](https://user-images.githubusercontent.com/9974686/65074594-7488fd00-d995-11e9-81f8-dda8e011f27c.png)
+
+Fill the Custom Field agosmsaddressmarker while editing an article. 
+You do not need the full address. You can enter only 
+the name of the city if you want a marker in the center of a city.
+
+![amarker2](https://user-images.githubusercontent.com/9974686/65074593-73f06680-d995-11e9-8eb7-091f34e12079.png)
 
 
-#### Options common to all custom fields
+##### Options common to all custom fields
 
 The next picture shows where you can activate the option in the module.
 
@@ -91,12 +148,17 @@ Just select the option `Do not automatically display` in the Custom Field option
 
 ![Beiträge  Feld bearbeiten   Administration](https://user-images.githubusercontent.com/9974686/59145428-19358f00-89e4-11e9-8446-6079f655e0d8.png)
 
-## GPX - Fileupload
+
+#### GPX - Fileupload
 
 Please choose the layout `upload` 
 if you want to allow a user to upload a GPX file to the server and view it on the map.
 
 ![Module  AGOSM Modul Administration](https://user-images.githubusercontent.com/9974686/59145427-189cf880-89e4-11e9-8900-4a4b7f30e44e.png)
+
+### AGOSM Search Module 
+
+
 
 ## Component
 

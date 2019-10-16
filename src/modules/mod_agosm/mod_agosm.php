@@ -57,11 +57,6 @@ if ($params->get('showrouting_simple', '1') == 1)
 	$document->addScript(JURI::root(true) . '/media/mod_agosm/js/LeafletControlRoutingtoaddress.js');
 }
 
-if ($params->get('showrouting_simple', '1') == 1 && $params->get('showrouting_places', '1') == 1)
-{
-	$document->addScript(JURI::root(true) . '/media/mod_agosm/js/places.js');
-}
-
 if ($params->get('showrouting', '1') == 1)
 {
 	$document->addStyleSheet(JURI::root(true) . '/media/mod_agosm/css/leaflet-routing-machine.css');
@@ -103,7 +98,10 @@ if ($params->get('showcomponentpin', '0') === "1")
 
 if ($params->get('showcustomfieldpin', '0') === "1")
 {
-	$listcf = ModagosmHelper::getListCustomField($params);
+	if (!empty(ModagosmHelper::getListCustomField($params)))
+	{
+		$listcf = ModagosmHelper::getListCustomField($params);
+	}
 }
 
 if ($params->get('showmarkerfromexternaldb', '0') === "1")
@@ -112,5 +110,11 @@ if ($params->get('showmarkerfromexternaldb', '0') === "1")
 }
 
 $document->addScript(JURI::root(true) . '/media/mod_agosm/js/agosm.js');
+
+if ($params->get('showrouting_simple', '1') == 1 && $params->get('showrouting_places', '1') == 1)
+{
+	$document->addScript(JURI::root(true) . '/media/mod_agosm/js/places.js');
+}
+
 $document->addStyleSheet(JURI::root(true) . '/media/mod_agosm/css/agosms.css');
 require JModuleHelper::getLayoutPath('mod_agosm', $params->get('layout', 'default'));
