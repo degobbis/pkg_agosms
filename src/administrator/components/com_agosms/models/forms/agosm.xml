@@ -244,20 +244,22 @@
 	>
 		<field
 			name="coordinates"
-			type="agosm"
+			type="agosmsaddressfinder"
 			default="50.273543, 7.262993"
 			label="MOD_AGOSM_LATLON"
 			description="MOD_AGOSM_LATLON_DESC"
 		/>
+
 		<field
 			name="url"
-			type="url"
+			type="hidden"
 			label="COM_AGOSMS_FIELD_URL_LABEL"
 			description="COM_AGOSMS_FIELD_URL_DESC"
 			class="span12"
 			filter="url"
 			size="40"
 		/>
+
 		<field
 			type="radio"
 			name="showdefaultpin"

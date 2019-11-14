@@ -57,20 +57,12 @@ if ($fieldParams->get('scrollwheelzoom') === "2")
 	$document->addScript(JURI::root(true) . '/media/plg_fields_agosmsaddressmarker/GoogleGestureHandling/leaflet-gesture-handling.min.js');
 }
 
-if ($fieldParams->get('maptype') === "mapbox")
-{
-	$document->addScript(JURI::root(true) . '/media/plg_fields_agosmsaddressmarker/js/site-agosmsaddressmarker-mapbox.js');
-}
-elseif ($fieldParams->get('maptype') === "google")
+if ($fieldParams->get('maptype') === "google")
 {
 	$document->addScript('https://maps.googleapis.com/maps/api/js?key=' . $fieldParams->get('googlekey', ''));
 	$document->addScript(JURI::root(true) . '/media/plg_fields_agosmsaddressmarker/GoogleMutant/Leaflet.GoogleMutant.js');
-	$document->addScript(JURI::root(true) . '/media/plg_fields_agosmsaddressmarker/js/site-agosmsaddressmarker-google.js');
 }
-else
-{
-	$document->addScript(JURI::root(true) . '/media/plg_fields_agosmsaddressmarker/js/site-agosmsaddressmarker-openstreetmap.js');
-}
+
 $document->addScript(JURI::root(true) . '/media/plg_fields_agosmsaddressmarker/js/site-agosmsaddressmarker.js');
 
 // We need this for list views
@@ -101,13 +93,13 @@ $popuptext = $values[5];
 	class = 'agosmsaddressmarkerleafletmap' 
 	style="height: <?php echo $fieldParams->get('mapheight', '400') ?><?php echo $fieldParams->get('mapheightunit', 'px') ?>"
 	data-unique='<?php echo $unique ?>'
+	data-maptype='<?php echo $fieldParams->get('maptype') ?>'
 	data-lat='<?php echo $lat ?>'
 	data-lon='<?php echo $lon ?>'
 	data-iconcolor='<?php echo $iconcolor ?>'
 	data-markercolor='<?php echo $markercolor ?>'
 	data-icon='<?php echo $icon ?>'
 	data-popuptext='<?php echo $popuptext ?>'
-	data-mapboxkey='<?php echo $fieldParams->get('mapboxkey', '') ?>'
 	data-scrollwheelzoom='<?php echo $fieldParams->get('scrollwheelzoom', '1') ?>'
 	data-owngooglegesturetext='<?php echo $fieldParams->get('owngooglegesturetext', '1') ?>'
 	data-specialicon='<?php echo $fieldParams->get('specialicon', '0') ?>'
@@ -124,6 +116,6 @@ $popuptext = $values[5];
 	data-collapsible="<?php echo $fieldParams->get('collapsible', 'false'); ?>"
 	data-showAlternatives="<?php echo $fieldParams->get('showAlternatives', 'false'); ?>"
 	data-routewhiledragging="<?php echo $fieldParams->get('routewhiledragging', 'false'); ?>"
-	
+	data-uriroot='<?php echo JUri::root(); ?>'	
 >
 </div>

@@ -1,6 +1,7 @@
-# Builds
-build
-releases
+sik/
+dist/
+dist/*
+vendor/
 
 # OSX
 .DS_Store
